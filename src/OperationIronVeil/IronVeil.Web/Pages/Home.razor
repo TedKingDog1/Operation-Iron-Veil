@@ -1,0 +1,61 @@
+﻿@inject NavigationManager Navigation
+@page "/"
+
+<PageTitle>OPERATION IRON VEIL</PageTitle>
+
+<div class="main-menu">
+    <div class="menu-top">
+        <span class="classification">UNCLASSIFIED // TRAINING SIMULATION</span>
+        <span class="system-status">SYSTEM ONLINE</span>
+    </div>
+
+    <main class="menu-content">
+        <div class="title-block">
+            <div class="title-line"></div>
+            <p class="eyebrow">TACTICAL OPERATIONS SIMULATION</p>
+            <h1>OPERATION<br /><span>IRON VEIL</span></h1>
+            <p class="subtitle">PLAN. DEPLOY. COMPLETE THE OBJECTIVE.</p>
+        </div>
+
+        <nav class="menu-options">
+            <button class="menu-button primary" @onclick="Deploy">
+                <span class="button-number">01</span>
+                <span>DEPLOY</span>
+                <span class="button-arrow">→</span>
+            </button>
+
+            <button class="menu-button" @onclick="PlanMission">
+                <span class="button-number">02</span>
+                <span>MISSION PLANNING</span>
+                <span class="button-arrow">→</span>
+            </button>
+
+            <button class="menu-button" @onclick="OpenSquad">
+                <span class="button-number">03</span>
+                <span>SQUAD MANAGEMENT</span>
+                <span class="button-arrow">→</span>
+            </button>
+
+            <button class="menu-button" @onclick="OpenSettings">
+                <span class="button-number">04</span>
+                <span>SETTINGS</span>
+                <span class="button-arrow">→</span>
+            </button>
+        </nav>
+    </main>
+
+    <footer class="menu-footer">
+        <span>IRON VEIL PROJECT</span>
+        <span>BUILD 0.1.0 // DEVELOPMENT</span>
+    </footer>
+</div>
+
+@code {
+    private void Deploy()
+{
+    Navigation.NavigateTo("/planning");
+}
+    private void PlanMission() { }
+    private void OpenSquad() { }
+    private void OpenSettings() { }
+}
