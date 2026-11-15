@@ -113,12 +113,28 @@
             <div class="panel-divider"></div>
 
             <h2>FORMATION</h2>
-            <select class="planning-select" @bind="SelectedFormation">
+            <select class="planning-select" @bind="SelectedFormation" aria-label="Squad formation">
                 <option>Column</option>
                 <option>Line</option>
                 <option>Wedge</option>
-                <option>Custom</option>
             </select>
+
+            <div class="formation-preview-panel">
+                <div class="formation-preview-heading">
+                    <span>FORMATION PREVIEW</span>
+                    <strong>@SelectedFormation.ToUpperInvariant()</strong>
+                </div>
+                <div class="formation-preview @FormationCssClass" aria-label="@($"{SelectedFormation} formation preview")">
+                    <span class="formation-front">FRONT</span>
+                    @for (var i = 1; i <= 4; i++)
+                    {
+                        <div class="formation-unit unit-@i">
+                            <span>@i.ToString("00")</span>
+                        </div>
+                    }
+                </div>
+                <small class="formation-note">SCHEMATIC SQUAD POSITIONS // 4 UNITS</small>
+            </div>
 
             <div class="panel-divider"></div>
 
@@ -190,6 +206,7 @@
     private ElementReference mapElement;
     private List<Waypoint> Waypoints { get; } = new();
     private string SelectedFormation { get; set; } = "Column";
+    private string FormationCssClass => SelectedFormation.ToLowerInvariant();
 
     private List<Objective> Objectives { get; } = new()
     {
