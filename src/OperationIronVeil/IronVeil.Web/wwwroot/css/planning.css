@@ -324,3 +324,362 @@
         display: none;
     }
 }
+
+
+/* Interactive route-planning layer */
+.map-placeholder {
+    cursor: crosshair;
+    isolation: isolate;
+}
+
+.map-placeholder > * {
+    pointer-events: none;
+}
+
+.route-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    z-index: 4;
+}
+
+.route-overlay polyline {
+    fill: none;
+    stroke: #d0dc9a;
+    stroke-width: 0.65;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1.8 1.2;
+    vector-effect: non-scaling-stroke;
+    filter: drop-shadow(0 0 3px #111);
+}
+
+.route-waypoint {
+    position: absolute;
+    z-index: 5;
+    width: 25px;
+    height: 25px;
+    display: grid;
+    place-items: center;
+    transform: translate(-50%, -50%);
+    border: 2px solid #d5e5a6;
+    border-radius: 50%;
+    background: #39482e;
+    color: #f1f5e8;
+    box-shadow: 0 0 0 3px #1b2419a8, 0 0 12px #101510;
+    font-size: 8px;
+    font-weight: 700;
+}
+
+.map-click-hint {
+    position: absolute;
+    z-index: 6;
+    right: 12px;
+    bottom: 10px;
+    color: #b6c3a5;
+    background: #111810c9;
+    border: 1px solid #56634c;
+    padding: 6px 8px;
+    font-size: 8px;
+    letter-spacing: 1px;
+}
+
+.route-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.route-heading h2 {
+    margin-bottom: 12px;
+}
+
+.route-count {
+    color: #cbd9a1;
+    font-size: 10px;
+    margin-bottom: 12px;
+}
+
+.route-empty {
+    padding: 10px 0;
+}
+
+.route-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px;
+}
+
+.route-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 36px;
+    padding: 7px 8px;
+    margin-bottom: 5px;
+    border: 1px solid #394336;
+    background: #20271e;
+    color: #cbd2c3;
+    font-size: 9px;
+    letter-spacing: .5px;
+}
+
+.route-list-number {
+    color: #cbd9a1;
+    font-weight: 700;
+}
+
+.planning-action:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+.deployment-note {
+    color: #778271;
+    font-size: 8px;
+    letter-spacing: .5px;
+    text-align: center;
+}
+
+.menu-button.unavailable {
+    opacity: .55;
+    cursor: not-allowed;
+}
+
+.menu-button.unavailable:hover {
+    border-color: #394237;
+    background: rgba(28, 34, 27, .8);
+    transform: none;
+}
+
+.button-status {
+    margin-left: auto;
+    color: #7f8b76;
+    font-size: 8px;
+    letter-spacing: 1px;
+}
+
+
+/* Squad objective assignment controls */
+.squad-select {
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+    border: 1px solid transparent;
+    background: transparent;
+    cursor: pointer;
+}
+
+.squad-select:hover,
+.squad-select.selected {
+    background: #252e25;
+    border-color: #56634c;
+}
+
+.squad-select.selected {
+    box-shadow: inset 2px 0 #a5b77f;
+}
+
+.member-info {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.member-info > span {
+    color: #c0c9b9;
+    font-size: 9px;
+}
+
+.member-info small {
+    color: #9eae83;
+    font-size: 8px;
+    letter-spacing: .4px;
+}
+
+.selected-indicator {
+    color: #cbd9a1;
+    font-size: 7px;
+    letter-spacing: .6px;
+}
+
+.assignment-selected {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 11px;
+    margin-bottom: 15px;
+    background: #20271e;
+    border: 1px solid #465341;
+}
+
+.assignment-selected strong {
+    color: #dce2d5;
+    font-size: 10px;
+    letter-spacing: .5px;
+}
+
+.assignment-selected small {
+    color: #9eae83;
+    font-size: 8px;
+}
+
+.assignment-label {
+    display: block;
+    margin: 0 0 8px;
+    color: #899681;
+    font-size: 8px;
+    letter-spacing: 1px;
+}
+
+.assignment-button {
+    margin-top: 10px;
+    color: #dce7c9;
+    border-color: #687b56;
+}
+
+.clear-assignment-button {
+    margin-top: 7px;
+}
+
+.assignment-button:disabled,
+.clear-assignment-button:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+
+/* Squad formation preview */
+.formation-preview-panel {
+    margin-top: 12px;
+    padding: 10px;
+    background: #20271e;
+    border: 1px solid #394336;
+}
+
+.formation-preview-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 8px;
+    color: #899681;
+    font-size: 8px;
+    letter-spacing: .8px;
+}
+
+.formation-preview-heading strong {
+    color: #cbd9a1;
+    font-size: 8px;
+    font-weight: 600;
+}
+
+.formation-preview {
+    position: relative;
+    height: 132px;
+    overflow: hidden;
+    border: 1px solid #465341;
+    background-color: #182018;
+    background-image:
+        linear-gradient(#81907219 1px, transparent 1px),
+        linear-gradient(90deg, #81907219 1px, transparent 1px);
+    background-size: 18px 18px;
+}
+
+.formation-front {
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #849279;
+    font-size: 7px;
+    letter-spacing: 1px;
+}
+
+.formation-unit {
+    position: absolute;
+    width: 23px;
+    height: 23px;
+    display: grid;
+    place-items: center;
+    transform: translate(-50%, -50%);
+    border: 1px solid #b5c98a;
+    border-radius: 50%;
+    background: #35452d;
+    color: #edf3df;
+    box-shadow: 0 0 0 3px #182018;
+    font-size: 7px;
+    font-weight: 700;
+}
+
+.formation-preview.column .unit-1 {
+    left: 50%;
+    top: 25px;
+}
+
+.formation-preview.column .unit-2 {
+    left: 50%;
+    top: 52px;
+}
+
+.formation-preview.column .unit-3 {
+    left: 50%;
+    top: 79px;
+}
+
+.formation-preview.column .unit-4 {
+    left: 50%;
+    top: 106px;
+}
+
+.formation-preview.line .unit-1 {
+    left: 14%;
+    top: 68px;
+}
+
+.formation-preview.line .unit-2 {
+    left: 38%;
+    top: 68px;
+}
+
+.formation-preview.line .unit-3 {
+    left: 62%;
+    top: 68px;
+}
+
+.formation-preview.line .unit-4 {
+    left: 86%;
+    top: 68px;
+}
+
+.formation-preview.wedge .unit-1 {
+    left: 50%;
+    top: 29px;
+}
+
+.formation-preview.wedge .unit-2 {
+    left: 27%;
+    top: 65px;
+}
+
+.formation-preview.wedge .unit-3 {
+    left: 73%;
+    top: 65px;
+}
+
+.formation-preview.wedge .unit-4 {
+    left: 50%;
+    top: 105px;
+}
+
+.formation-note {
+    display: block;
+    margin-top: 8px;
+    color: #778271;
+    font-size: 7px;
+    letter-spacing: .4px;
+    line-height: 1.5;
+}

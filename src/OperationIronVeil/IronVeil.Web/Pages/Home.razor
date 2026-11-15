@@ -1,4 +1,4 @@
-﻿@inject NavigationManager Navigation
+@inject NavigationManager Navigation
 @page "/"
 
 <PageTitle>OPERATION IRON VEIL</PageTitle>
@@ -18,44 +18,41 @@
         </div>
 
         <nav class="menu-options">
-            <button class="menu-button primary" @onclick="Deploy">
+            <button class="menu-button primary" @onclick="OpenPlanning">
                 <span class="button-number">01</span>
                 <span>DEPLOY</span>
                 <span class="button-arrow">→</span>
             </button>
 
-            <button class="menu-button" @onclick="PlanMission">
+            <button class="menu-button" @onclick="OpenPlanning">
                 <span class="button-number">02</span>
                 <span>MISSION PLANNING</span>
                 <span class="button-arrow">→</span>
             </button>
 
-            <button class="menu-button" @onclick="OpenSquad">
+            <button class="menu-button unavailable" disabled>
                 <span class="button-number">03</span>
                 <span>SQUAD MANAGEMENT</span>
-                <span class="button-arrow">→</span>
+                <span class="button-status">COMING SOON</span>
             </button>
 
-            <button class="menu-button" @onclick="OpenSettings">
+            <button class="menu-button unavailable" disabled>
                 <span class="button-number">04</span>
                 <span>SETTINGS</span>
-                <span class="button-arrow">→</span>
+                <span class="button-status">COMING SOON</span>
             </button>
         </nav>
     </main>
 
     <footer class="menu-footer">
         <span>IRON VEIL PROJECT</span>
-        <span>BUILD 0.1.0 // DEVELOPMENT</span>
+        <span>BUILD 0.1.1 // DEVELOPMENT</span>
     </footer>
 </div>
 
 @code {
-    private void Deploy()
-{
-    Navigation.NavigateTo("/planning");
-}
-    private void PlanMission() { }
-    private void OpenSquad() { }
-    private void OpenSettings() { }
+    private void OpenPlanning()
+    {
+        Navigation.NavigateTo("/planning");
+    }
 }
