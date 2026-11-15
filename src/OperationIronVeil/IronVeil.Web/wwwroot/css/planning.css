@@ -551,3 +551,135 @@
     opacity: .4;
     cursor: not-allowed;
 }
+
+
+/* Squad formation preview */
+.formation-preview-panel {
+    margin-top: 12px;
+    padding: 10px;
+    background: #20271e;
+    border: 1px solid #394336;
+}
+
+.formation-preview-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 8px;
+    color: #899681;
+    font-size: 8px;
+    letter-spacing: .8px;
+}
+
+.formation-preview-heading strong {
+    color: #cbd9a1;
+    font-size: 8px;
+    font-weight: 600;
+}
+
+.formation-preview {
+    position: relative;
+    height: 132px;
+    overflow: hidden;
+    border: 1px solid #465341;
+    background-color: #182018;
+    background-image:
+        linear-gradient(#81907219 1px, transparent 1px),
+        linear-gradient(90deg, #81907219 1px, transparent 1px);
+    background-size: 18px 18px;
+}
+
+.formation-front {
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #849279;
+    font-size: 7px;
+    letter-spacing: 1px;
+}
+
+.formation-unit {
+    position: absolute;
+    width: 23px;
+    height: 23px;
+    display: grid;
+    place-items: center;
+    transform: translate(-50%, -50%);
+    border: 1px solid #b5c98a;
+    border-radius: 50%;
+    background: #35452d;
+    color: #edf3df;
+    box-shadow: 0 0 0 3px #182018;
+    font-size: 7px;
+    font-weight: 700;
+}
+
+.formation-preview.column .unit-1 {
+    left: 50%;
+    top: 25px;
+}
+
+.formation-preview.column .unit-2 {
+    left: 50%;
+    top: 52px;
+}
+
+.formation-preview.column .unit-3 {
+    left: 50%;
+    top: 79px;
+}
+
+.formation-preview.column .unit-4 {
+    left: 50%;
+    top: 106px;
+}
+
+.formation-preview.line .unit-1 {
+    left: 14%;
+    top: 68px;
+}
+
+.formation-preview.line .unit-2 {
+    left: 38%;
+    top: 68px;
+}
+
+.formation-preview.line .unit-3 {
+    left: 62%;
+    top: 68px;
+}
+
+.formation-preview.line .unit-4 {
+    left: 86%;
+    top: 68px;
+}
+
+.formation-preview.wedge .unit-1 {
+    left: 50%;
+    top: 29px;
+}
+
+.formation-preview.wedge .unit-2 {
+    left: 27%;
+    top: 65px;
+}
+
+.formation-preview.wedge .unit-3 {
+    left: 73%;
+    top: 65px;
+}
+
+.formation-preview.wedge .unit-4 {
+    left: 50%;
+    top: 105px;
+}
+
+.formation-note {
+    display: block;
+    margin-top: 8px;
+    color: #778271;
+    font-size: 7px;
+    letter-spacing: .4px;
+    line-height: 1.5;
+}
