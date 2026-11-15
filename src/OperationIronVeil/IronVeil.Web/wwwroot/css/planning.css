@@ -324,3 +324,139 @@
         display: none;
     }
 }
+
+
+/* Interactive route-planning layer */
+.map-placeholder {
+    cursor: crosshair;
+    isolation: isolate;
+}
+
+.map-placeholder > * {
+    pointer-events: none;
+}
+
+.route-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    z-index: 4;
+}
+
+.route-overlay polyline {
+    fill: none;
+    stroke: #d0dc9a;
+    stroke-width: 0.65;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1.8 1.2;
+    vector-effect: non-scaling-stroke;
+    filter: drop-shadow(0 0 3px #111);
+}
+
+.route-waypoint {
+    position: absolute;
+    z-index: 5;
+    width: 25px;
+    height: 25px;
+    display: grid;
+    place-items: center;
+    transform: translate(-50%, -50%);
+    border: 2px solid #d5e5a6;
+    border-radius: 50%;
+    background: #39482e;
+    color: #f1f5e8;
+    box-shadow: 0 0 0 3px #1b2419a8, 0 0 12px #101510;
+    font-size: 8px;
+    font-weight: 700;
+}
+
+.map-click-hint {
+    position: absolute;
+    z-index: 6;
+    right: 12px;
+    bottom: 10px;
+    color: #b6c3a5;
+    background: #111810c9;
+    border: 1px solid #56634c;
+    padding: 6px 8px;
+    font-size: 8px;
+    letter-spacing: 1px;
+}
+
+.route-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.route-heading h2 {
+    margin-bottom: 12px;
+}
+
+.route-count {
+    color: #cbd9a1;
+    font-size: 10px;
+    margin-bottom: 12px;
+}
+
+.route-empty {
+    padding: 10px 0;
+}
+
+.route-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px;
+}
+
+.route-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 36px;
+    padding: 7px 8px;
+    margin-bottom: 5px;
+    border: 1px solid #394336;
+    background: #20271e;
+    color: #cbd2c3;
+    font-size: 9px;
+    letter-spacing: .5px;
+}
+
+.route-list-number {
+    color: #cbd9a1;
+    font-weight: 700;
+}
+
+.planning-action:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+.deployment-note {
+    color: #778271;
+    font-size: 8px;
+    letter-spacing: .5px;
+    text-align: center;
+}
+
+.menu-button.unavailable {
+    opacity: .55;
+    cursor: not-allowed;
+}
+
+.menu-button.unavailable:hover {
+    border-color: #394237;
+    background: rgba(28, 34, 27, .8);
+    transform: none;
+}
+
+.button-status {
+    margin-left: auto;
+    color: #7f8b76;
+    font-size: 8px;
+    letter-spacing: 1px;
+}
