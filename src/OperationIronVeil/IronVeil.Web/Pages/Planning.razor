@@ -27,50 +27,37 @@
 
             <h2>OBJECTIVES</h2>
 
-            <div class="objective-item">
-                <span class="objective-number">01</span>
-                <div>
-                    <strong>RALLY POINT</strong>
-                    <small>Initial destination</small>
+            @foreach (var objective in Objectives)
+            {
+                <div class="objective-item">
+                    <span class="objective-number">@objective.Number</span>
+                    <div>
+                        <strong>@objective.Name</strong>
+                        <small>@objective.Description</small>
+                    </div>
                 </div>
-            </div>
-
-            <div class="objective-item">
-                <span class="objective-number">02</span>
-                <div>
-                    <strong>COMMUNICATIONS</strong>
-                    <small>Complete assigned task</small>
-                </div>
-            </div>
-
-            <div class="objective-item">
-                <span class="objective-number">03</span>
-                <div>
-                    <strong>EXTRACTION</strong>
-                    <small>Return to deployment area</small>
-                </div>
-            </div>
+            }
 
             <div class="panel-divider"></div>
 
             <h2>SQUAD</h2>
 
-            <div class="squad-member">
-                <span class="member-dot"></span>
-                <span>01 — SQUAD LEADER</span>
-            </div>
-            <div class="squad-member">
-                <span class="member-dot"></span>
-                <span>02 — TEAM MEMBER</span>
-            </div>
-            <div class="squad-member">
-                <span class="member-dot"></span>
-                <span>03 — TEAM MEMBER</span>
-            </div>
-            <div class="squad-member">
-                <span class="member-dot"></span>
-                <span>04 — TEAM MEMBER</span>
-            </div>
+            @foreach (var member in SquadMembers)
+            {
+                <button type="button"
+                        class="squad-member squad-select @(SelectedSquadMemberId == member.Id ? "selected" : "")"
+                        @onclick="() => SelectSquadMember(member.Id)">
+                    <span class="member-dot"></span>
+                    <span class="member-info">
+                        <span>@member.Id — @member.Role</span>
+                        <small>@(member.AssignedObjective ?? "NO OBJECTIVE ASSIGNED")</small>
+                    </span>
+                    @if (SelectedSquadMemberId == member.Id)
+                    {
+                        <span class="selected-indicator">SELECTED</span>
+                    }
+                </button>
+            }
         </aside>
 
         <section class="planning-map-area">
@@ -135,6 +122,37 @@
 
             <div class="panel-divider"></div>
 
+            <h2>SQUAD ASSIGNMENT</h2>
+            <div class="assignment-selected">
+                <span class="panel-label">SELECTED UNIT</span>
+                <strong>@(SelectedSquadMember is null ? "NONE" : $"{SelectedSquadMember.Id} — {SelectedSquadMember.Role}")</strong>
+                <small>CURRENT TASK: @(SelectedSquadMember?.AssignedObjective ?? "UNASSIGNED")</small>
+            </div>
+
+            <label class="assignment-label" for="objective-select">ASSIGN OBJECTIVE</label>
+            <select id="objective-select" class="planning-select" @bind="SelectedObjective">
+                @foreach (var objective in Objectives)
+                {
+                    <option value="@objective.Name">@objective.Name</option>
+                }
+            </select>
+
+            <button type="button"
+                    class="planning-action assignment-button"
+                    @onclick="AssignObjective"
+                    disabled="@(SelectedSquadMember is null)">
+                ASSIGN TO SELECTED UNIT
+            </button>
+
+            <button type="button"
+                    class="planning-action clear-assignment-button"
+                    @onclick="ClearAssignment"
+                    disabled="@(SelectedSquadMember?.AssignedObjective is null)">
+                CLEAR ASSIGNMENT
+            </button>
+
+            <div class="panel-divider"></div>
+
             <div class="route-heading">
                 <h2>ROUTE</h2>
                 <span class="route-count">@Waypoints.Count.ToString("00")</span>
@@ -173,12 +191,54 @@
     private List<Waypoint> Waypoints { get; } = new();
     private string SelectedFormation { get; set; } = "Column";
 
+    private List<Objective> Objectives { get; } = new()
+    {
+        new("01", "RALLY POINT", "Initial destination"),
+        new("02", "COMMUNICATIONS", "Complete assigned task"),
+        new("03", "EXTRACTION", "Return to deployment area")
+    };
+
+    private List<SquadMember> SquadMembers { get; } = new()
+    {
+        new("01", "SQUAD LEADER"),
+        new("02", "TEAM MEMBER"),
+        new("03", "TEAM MEMBER"),
+        new("04", "TEAM MEMBER")
+    };
+
+    private string SelectedSquadMemberId { get; set; } = "01";
+    private string SelectedObjective { get; set; } = "RALLY POINT";
+
+    private SquadMember? SelectedSquadMember =>
+        SquadMembers.FirstOrDefault(member => member.Id == SelectedSquadMemberId);
+
     private string RouteStatus => Waypoints.Count == 0
         ? "ROUTE PLANNING: NOT CONFIGURED"
         : $"ROUTE PLANNING: {Waypoints.Count} WAYPOINT{(Waypoints.Count == 1 ? "" : "S")}";
 
     private string RoutePoints => string.Join(" ", new[] { "8,85" }
         .Concat(Waypoints.Select(point => $"{point.X:F2},{point.Y:F2}")));
+
+    private void SelectSquadMember(string memberId)
+    {
+        SelectedSquadMemberId = memberId;
+    }
+
+    private void AssignObjective()
+    {
+        if (SelectedSquadMember is not null)
+        {
+            SelectedSquadMember.AssignedObjective = SelectedObjective;
+        }
+    }
+
+    private void ClearAssignment()
+    {
+        if (SelectedSquadMember is not null)
+        {
+            SelectedSquadMember.AssignedObjective = null;
+        }
+    }
 
     private async Task AddWaypoint(MouseEventArgs args)
     {
@@ -202,6 +262,15 @@
     private static string WaypointStyle(Waypoint waypoint) =>
         $"left: {waypoint.X.ToString("F2", System.Globalization.CultureInfo.InvariantCulture)}%; " +
         $"top: {waypoint.Y.ToString("F2", System.Globalization.CultureInfo.InvariantCulture)}%;";
+
+    private sealed record Objective(string Number, string Name, string Description);
+
+    private sealed class SquadMember(string id, string role)
+    {
+        public string Id { get; } = id;
+        public string Role { get; } = role;
+        public string? AssignedObjective { get; set; }
+    }
 
     private sealed record Waypoint(int Number, double X, double Y);
 
