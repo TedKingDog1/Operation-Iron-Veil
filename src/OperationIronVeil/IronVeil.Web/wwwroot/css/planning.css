@@ -460,3 +460,94 @@
     font-size: 8px;
     letter-spacing: 1px;
 }
+
+
+/* Squad objective assignment controls */
+.squad-select {
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+    border: 1px solid transparent;
+    background: transparent;
+    cursor: pointer;
+}
+
+.squad-select:hover,
+.squad-select.selected {
+    background: #252e25;
+    border-color: #56634c;
+}
+
+.squad-select.selected {
+    box-shadow: inset 2px 0 #a5b77f;
+}
+
+.member-info {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.member-info > span {
+    color: #c0c9b9;
+    font-size: 9px;
+}
+
+.member-info small {
+    color: #9eae83;
+    font-size: 8px;
+    letter-spacing: .4px;
+}
+
+.selected-indicator {
+    color: #cbd9a1;
+    font-size: 7px;
+    letter-spacing: .6px;
+}
+
+.assignment-selected {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 11px;
+    margin-bottom: 15px;
+    background: #20271e;
+    border: 1px solid #465341;
+}
+
+.assignment-selected strong {
+    color: #dce2d5;
+    font-size: 10px;
+    letter-spacing: .5px;
+}
+
+.assignment-selected small {
+    color: #9eae83;
+    font-size: 8px;
+}
+
+.assignment-label {
+    display: block;
+    margin: 0 0 8px;
+    color: #899681;
+    font-size: 8px;
+    letter-spacing: 1px;
+}
+
+.assignment-button {
+    margin-top: 10px;
+    color: #dce7c9;
+    border-color: #687b56;
+}
+
+.clear-assignment-button {
+    margin-top: 7px;
+}
+
+.assignment-button:disabled,
+.clear-assignment-button:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
